@@ -1,0 +1,15 @@
+volumes:
+  covid-vaccinate-redis:
+    name: "covid-vaccinate-redis"
+
+services:
+  redis:
+    image: bitnami/redis:${REDIS_IMAGE_TAG}
+    env_file:
+      - .envs/redis.env
+    networks:
+      covid-vaccinate-net:
+        aliases:
+          - covid-vaccinate-redis
+    volumes:
+      - covid-vaccinate-redis:/bitnami

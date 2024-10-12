@@ -1,0 +1,15 @@
+volumes:
+  covid-vaccinate-rabbitmq:
+    name: 'covid-vaccinate-rabbitmq'
+
+services:
+  rabbitmq:
+    image: rabbitmq:${RABBITMQ_IMAGE_TAG}
+    env_file:
+      - .envs/rabbitmq.env
+    networks:
+      covid-vaccinate-net:
+        aliases:
+          - covid-vaccinate-rabbitmq
+    volumes:
+      - covid-vaccinate-rabbitmq:/var/lib/rabbitmq

@@ -1,0 +1,15 @@
+services:
+  mysql:
+    image: "mysql:${MYSQL_IMAGE_TAG}"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --sort-buffer-size=512k
+      - --default-authentication-plugin=mysql_native_password
+      - --local-infile=1
+    env_file:
+      - .envs/mysql.env
+    networks:
+      covid-vaccinate-net:
+        aliases:
+          - covid-vaccinate-mysql

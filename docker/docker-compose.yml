@@ -1,0 +1,3 @@
+networks:
+  covid-vaccinate-net:
+    external: true
