@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\CachingService;
+namespace App\Caching;
 
 use App\Library\Cache;
 

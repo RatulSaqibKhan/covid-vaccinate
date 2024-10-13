@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Interfaces\UserRepositoryInterface;
-use App\Services\CachingService\UserCache;
+use App\Caching\UserCache;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -25,9 +25,11 @@ class UserRepository implements UserRepositoryInterface
 
     public function update(int $id, array $data): array
     {
-        $user = User::query()->where('id', $id)->fill($data)->save();
-        $userInfo = $user->toArray();
-        UserCache::remove($data['nid']);
+        $user = User::query()->find($id);
+        UserCache::remove($user['nid']);
+        $updatedData = $user->fill($data);
+        $user->save();
+        $userInfo = $updatedData->toArray();
         return $userInfo;
     }
 

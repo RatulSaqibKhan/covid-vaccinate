@@ -24,7 +24,7 @@ class UserService
 
     public function searchUser(string $nid) {
         $user = $this->userRepository->findByNid($nid);
-        if ($user['scheduled_date'] < now()->toDateString()) {
+        if ($user['scheduled_date'] && $user['scheduled_date'] < now()->toDateString()) {
             $data = [
                 'status' => 'Vaccinated'
             ];

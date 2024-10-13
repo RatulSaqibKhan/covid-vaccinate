@@ -28,7 +28,9 @@ class Cache
                 'host' => env('REDIS_HOST'),
                 'password' => env('REDIS_PASSWORD'),
                 'port' => env('REDIS_PORT'),
-                'database' => env('REDIS_CACHE_DB', '1'),
+                'database' => env('REDIS_DB', '0')
+            ], [
+                'prefix' => env('CACHE_PREFIX', 'covid-vaccinate:')
             ]);
         }
     }
@@ -219,7 +221,8 @@ class Cache
      * @return bool
      *
      */
-    public static function forever(string $key, $value) {
+    public static function forever(string $key, $value)
+    {
         return self::set($key, $value);
     }
 
@@ -347,6 +350,17 @@ class Cache
             Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         } finally {
             return $keys;
+        }
+    }
+
+    public static function pipelineSet($callback) {
+        try {
+            self::initialize();
+            $client = self::$cache;
+            $client->pipeline($callback);
+        } catch (\Exception $e) {
+            $errMessage = $e->getMessage();
+            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         }
     }
 }
