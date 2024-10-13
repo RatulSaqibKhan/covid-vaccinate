@@ -14,7 +14,7 @@ name             VARCHAR(255)             -- Full name of the user
 email            VARCHAR(255) UNIQUE      -- Email for notification
 phone            VARCHAR(13)              -- Optional, if needed
 vaccine_center_id BIGINT UNSIGNED         -- Foreign key to vaccine_centers table
-registration_date TIMESTAMP               -- The date and time when user registered
+registered_at TIMESTAMP               -- The date and time when user registered
 status           ENUM('Not scheduled', 'Scheduled', 'Vaccinated') 
 scheduled_date   DATE                     -- Date the user is scheduled for vaccination
 created_at       TIMESTAMP                -- Auto-generated timestamps
@@ -28,6 +28,7 @@ id               BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY
 name             VARCHAR(255)             -- Name of the vaccine center
 location         VARCHAR(255)             -- Location or address of the center
 daily_capacity   INT                      -- Number of users this center can vaccinate per day
+available_date   DATE                     -- Date when the center is available for vaccination
 created_at       TIMESTAMP                -- Auto-generated timestamps
 updated_at       TIMESTAMP
 ```

@@ -5,18 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class VaccineSchedule extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'email',
-        'nid',
-        'phone',
-        'vacchine_center_id',
-        'registered_at',
-        'status'
+        'vaccine_center_id',
+        'scheduled_date',
+        'slots_filled'
     ];
 
     public function vaccineCenter()

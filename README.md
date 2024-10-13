@@ -7,8 +7,7 @@ This is a simple vaccination registration system.
 
 ## Installation
 **Backend**
-1. `cd docker`
-2. `copy  .env.example .env`
-3. Update the `.env` as per your docker environment
-4. `cd ..`
-5. `make`
+1. `make up-core`
+2. `make create-db`
+3. `make up-app`
+4. `make migrate-seed`

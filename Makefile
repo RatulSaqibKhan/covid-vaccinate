@@ -9,6 +9,7 @@ DOCKER_COMPOSE_DEV=$(DOCKER_DIR)/docker-compose.override.dev.yml
 DOCKER_COMPOSE=$(DOCKER_DIR)/docker-compose.override.yml
 DOCKER_NETWORK=covid-vaccinate-net
 MYSQL_CONTAINER=covid-vaccinate-mysql
+APP_CONTAINER=covid-vaccinate-app
 MYSQL_DB_NAME=covid_vaccinate
 MYSQL_ROOT_PASSWORD=covid-vaccinate
 
@@ -78,6 +79,14 @@ create-db:
 	@docker exec $(MYSQL_CONTAINER) sh -c "mysql -u root -p'$(MYSQL_ROOT_PASSWORD)' -e 'CREATE DATABASE IF NOT EXISTS \`$(MYSQL_DB_NAME)\`;'"
 	@echo "Database '$(MYSQL_DB_NAME)' ensured to exist."
 
+# Run migrations and seeds
+.PHONY: migrate-seed
+migrate-seed:
+	@echo "Running database migrations and seeders in the 'app' container..."
+	@docker exec $(APP_CONTAINER) sh -c "php artisan migrate --force"
+	@docker exec $(APP_CONTAINER) sh -c "php artisan db:seed --force"
+	@echo "Migrations and seeders executed successfully."
+
 # Clean up generated .env files, docker-compose.override.yml, and Docker network
 .PHONY: clean
 clean:
@@ -119,7 +128,7 @@ help:
 	@echo "  make down-app-services     Stop services: app, queue, cron"
 	@echo "  make create-db             Exec into MySQL container and create the database if it doesn't exist"
 	@echo "  make up-core               Run the sequence to set up core services"
-	@echo "  make create-db             Run the sequence to create the database"
+	@echo "  make migrate-seed          Run database migrations and seeders in the 'app' container"
 	@echo "  make up-app                Run the sequence to set up the app, queue, cron"
 	@echo "  make down-app              Stop app, queue, cron services"
 	@echo "  make clean                 Remove all .env files, docker-compose.override.yml, and Docker network"
