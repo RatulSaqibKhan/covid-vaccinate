@@ -4,13 +4,13 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Interfaces\UserRepositoryInterface;
-use Illuminate\Support\Facades\Hash;
+use App\Services\CachingService\UserCache;
 
 class UserRepository implements UserRepositoryInterface
 {
-    public function create(array $data): User
+    public function create(array $data): array
     {
-        return User::create([
+        $user = User::query()->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'nid' => $data['nid'],
@@ -18,15 +18,33 @@ class UserRepository implements UserRepositoryInterface
             'vaccine_center_id' => $data['vaccine_center_id'],
             'registered_at' => $data['registered_at'],
         ]);
+        $userInfo = $user->toArray();
+        UserCache::remove($data['nid']);
+        return $userInfo;
     }
 
-    public function findByEmail(string $email): ?User
+    public function update(int $id, array $data): array
     {
-        return User::where('email', $email)->first();
+        $user = User::query()->where('id', $id)->fill($data)->save();
+        $userInfo = $user->toArray();
+        UserCache::remove($data['nid']);
+        return $userInfo;
     }
 
-    public function findByNid(string $nid): ?User
+    public function findByEmail(string $email): ?array
     {
-        return User::where('nid', $nid)->first();
+        $user = User::query()->where('email', $email)->first()->toArray();
+        UserCache::set($user['nid'], $user);
+        return $user;
+    }
+
+    public function findByNid(string $nid): ?array
+    {
+        $user = UserCache::get($nid);
+        if (!$user) {
+            $user = User::query()->where('nid', $nid)->first()->toArray();
+            UserCache::set($nid, $user);
+        }
+        return $user;
     }
 }

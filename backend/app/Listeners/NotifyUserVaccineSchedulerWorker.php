@@ -30,7 +30,7 @@ class NotifyUserVaccineSchedulerWorker
         $cloudEvents = CloudEventDTO::handle(new EventEmitterDTO(
             type: "covid_vaccinate_user_register",
             subject: "User Vaccination Schedling",
-            data: $event->user->toArray()
+            data: $event->user
         ))->toArray();
 
         app(PlainAMQPManager::class)->pushToExchange(

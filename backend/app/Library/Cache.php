@@ -68,7 +68,7 @@ class Cache
             $exists = self::$cache->exists($key) == 1;
         } catch (\Exception $e) {
             $errMessage = $e->getMessage();
-            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__]);
+            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         } finally {
             return $exists;
         }
@@ -92,7 +92,7 @@ class Cache
             }
         } catch (\Exception $e) {
             $errMessage = $e->getMessage();
-            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__]);
+            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         }
     }
 
@@ -113,7 +113,7 @@ class Cache
             $data = self::$cache->hgetall($key);
         } catch (\Exception $e) {
             $errMessage = $e->getMessage();
-            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__]);
+            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         } finally {
             return $data;
         }
@@ -136,7 +136,7 @@ class Cache
             self::$cache->hset($key, $fieldName, $value);
         } catch (\Exception $e) {
             $errMessage = $e->getMessage();
-            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__]);
+            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         }
     }
 
@@ -157,7 +157,7 @@ class Cache
             $data = self::$cache->hget($key, $fieldName);
         } catch (\Exception $e) {
             $errMessage = $e->getMessage();
-            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__]);
+            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         } finally {
             return $data;
         }
@@ -179,7 +179,7 @@ class Cache
             $deleted = self::$cache->hdel($key, $fieldName);
         } catch (\Exception $e) {
             $errMessage = $e->getMessage();
-            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__]);
+            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         } finally {
             return $deleted;
         }
@@ -205,7 +205,7 @@ class Cache
             });
         } catch (\Exception $e) {
             $errMessage = $e->getMessage();
-            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__]);
+            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         }
     }
 
@@ -247,7 +247,7 @@ class Cache
             $response = true;
         } catch (\Exception $e) {
             $errMessage = $e->getMessage();
-            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__]);
+            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         } finally {
             return $response;
         }
@@ -271,7 +271,7 @@ class Cache
             $data = self::$cache->get($key);
         } catch (\Exception $e) {
             $errMessage = $e->getMessage();
-            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__]);
+            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         } finally {
             return $data;
         }
@@ -294,7 +294,7 @@ class Cache
             $data = self::$cache->keys($pattern);
         } catch (\Exception $e) {
             $errMessage = $e->getMessage();
-            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__]);
+            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         } finally {
             return $data;
         }
@@ -321,7 +321,7 @@ class Cache
             }
         } catch (\Exception $e) {
             $errMessage = $e->getMessage();
-            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__]);
+            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         } finally {
             return $data;
         }
@@ -344,7 +344,7 @@ class Cache
             }
         } catch (\Exception $e) {
             $errMessage = $e->getMessage();
-            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__]);
+            Helpers::writeToLog('CACHE_ERROR', 'error', self::$cacheServerErrorMessage, [__METHOD__, $errMessage]);
         } finally {
             return $keys;
         }

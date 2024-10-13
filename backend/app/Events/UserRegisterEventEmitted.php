@@ -2,20 +2,19 @@
  
 namespace App\Events;
 
-use App\Models\User;
 use Illuminate\Queue\SerializesModels;
  
 class UserRegisterEventEmitted
 {
     use SerializesModels;
 
-    public User $user;
+    public array $user;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(array $user)
     {
         $this->user = $user;
     }
