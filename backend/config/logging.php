@@ -18,7 +18,9 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'stack'),
+    'default' => env('LOG_CHANNEL', 'stderr'),
+
+    'log_prefix' => env('LOG_PREFIX', 'COVID_VACCINATE'),
 
     /*
     |--------------------------------------------------------------------------

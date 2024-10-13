@@ -14,7 +14,7 @@ class User extends Model
         'email',
         'nid',
         'phone',
-        'vacchine_center_id',
+        'vaccine_center_id',
         'registered_at',
         'status'
     ];
