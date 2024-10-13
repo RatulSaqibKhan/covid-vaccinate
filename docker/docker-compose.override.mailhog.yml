@@ -1,0 +1,8 @@
+services:
+
+  mailhog:
+    image: 'mailhog/mailhog:${MAILHOG_IMAGE_TAG}'
+    networks:
+      covid-vaccinate-net:
+        aliases:
+          - covid-vaccinate-mailhog

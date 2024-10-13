@@ -56,8 +56,8 @@ build-services:
 # Bring up core services (redis, mysql, adminer, rabbitmq)
 .PHONY: up-core-services
 up-core-services:
-	@echo "Starting core services: redis, mysql, adminer, rabbitmq..."
-	@cd $(DOCKER_DIR) && docker compose up -d redis mysql adminer rabbitmq
+	@echo "Starting core services: redis, mysql, adminer, rabbitmq, mailhog..."
+	@cd $(DOCKER_DIR) && docker compose up -d redis mysql adminer rabbitmq mailhog
 
 # Bring up remaining services (app, queue, cron)
 .PHONY: up-remaining-services
