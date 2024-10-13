@@ -3,6 +3,7 @@
 namespace App\Services\V1;
 
 use App\DTOs\RegisterUserDTO;
+use App\Events\UserRegisterEventEmitted;
 use App\Interfaces\UserRepositoryInterface;
 
 class UserService
@@ -14,6 +15,10 @@ class UserService
 
     public function registerUser(RegisterUserDTO $userDto)
     {
-        return $this->userRepository->create($userDto->toArray());
+        $user = $this->userRepository->create($userDto->toArray());
+
+        event(new UserRegisterEventEmitted($user));
+
+        return $user;
     }
 }

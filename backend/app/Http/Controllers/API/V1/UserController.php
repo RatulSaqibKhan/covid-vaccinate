@@ -6,8 +6,6 @@ use App\DTOs\RegisterUserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegistrationRequest;
 use App\Services\V1\UserService;
-use App\Utils\ApiLogger;
-use App\Utils\Helpers;
 use App\Utils\ResponseDecorator;
 use Exception;
 use Illuminate\Http\Response;
@@ -36,11 +34,6 @@ class UserController extends Controller
         } catch (Exception $exception) {
             $code = $exception->getCode();
             $reason = $exception->getMessage();
-            Helpers::writeToLog(self::REGISTRATION, "error", $reason, [
-                'reason' => $reason,
-                'request_data' => $request->all()
-            ]);
-            ApiLogger::addOrUpdateInApiLog('error_message', $reason);
 
             return ResponseDecorator::json([
                 'error' => [
