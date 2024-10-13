@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Events\UserRegisterEventEmitted;
-use App\Listeners\NotifyCmpAutoRechargeWorker;
+use App\Listeners\NotifyUserVaccineSchedulerWorker;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
