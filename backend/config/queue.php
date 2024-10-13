@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_CONNECTION', 'database'),
+    'default' => env('QUEUE_CONNECTION', 'rabbitmq'),
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +71,31 @@ return [
             'block_for' => null,
             'after_commit' => false,
         ],
-
+        'rabbitmq' => [
+            'driver' => 'rabbitmq',
+            'queue' => env('RABBITMQ_QUEUE', 'default'),
+            'exchange' => env('RABBITMQ_EXCHANGE', 'default_exchange'),
+            'hosts' => [
+                [
+                    'host' => env('RABBITMQ_HOST', '127.0.0.1'),
+                    'port' => env('RABBITMQ_PORT', 5672),
+                    'user' => env('RABBITMQ_USER', 'guest'),
+                    'password' => env('RABBITMQ_PASSWORD', 'guest'),
+                    'vhost' => env('RABBITMQ_VHOST', '/'),
+                ],
+            ],
+            'worker' => env('RABBITMQ_WORKER', 'default'), // default or blocking
+            'queues' => [
+                'user_register' => [
+                    'name' => env('RABBITMQ_USER_REGISTER_QUEUE', 'covid_vaccinate_user_register'),
+                    'routing_key' => env('RABBITMQ_USER_REGISTER_QUEUE', 'covid_vaccinate_user_register'),
+                ],
+                'user_email_notification' => [
+                    'name' => env('RABBITMQ_USER_EMAIL_NOTIFICATIOn_QUEUE', 'covid_vaccinate_user_register'),
+                    'routing_key' => env('RABBITMQ_USER_EMAIL_NOTIFICATIOn_QUEUE', 'covid_vaccinate_user_email_notification'),
+                ],
+            ]
+        ],
     ],
 
     /*

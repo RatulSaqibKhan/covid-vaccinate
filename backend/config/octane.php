@@ -1,5 +1,6 @@
 <?php
 
+use App\Library\PlainAMQPManager;
 use Laravel\Octane\Contracts\OperationTerminated;
 use Laravel\Octane\Events\RequestHandled;
 use Laravel\Octane\Events\RequestReceived;
@@ -38,7 +39,7 @@ return [
     |
     */
 
-    'server' => env('OCTANE_SERVER', 'roadrunner'),
+    'server' => env('OCTANE_SERVER', 'swoole'),
 
     /*
     |--------------------------------------------------------------------------
@@ -132,6 +133,7 @@ return [
 
     'warm' => [
         ...Octane::defaultServicesToWarm(),
+        PlainAMQPManager::class
     ],
 
     'flush' => [

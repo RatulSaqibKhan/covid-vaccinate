@@ -16,6 +16,8 @@ services:
       - ${RABBITMQ_PUBLISH_PORT}:15672
 
   app:
+    volumes:
+      - ${DOCKER_VOLUME_BACKEND_ROOT_DIR}:/var/www/html
     env_file:
       - .envs/app.env
       - .envs/web.env
@@ -24,12 +26,16 @@ services:
       - ${WEB_HTTP_PUBLISH_PORT}:8000
 
   queue:
+    volumes:
+      - ${DOCKER_VOLUME_BACKEND_ROOT_DIR}:/var/www/html
     env_file:
       - .envs/app.env
       - .envs/web.env
       - .envs/php-ini.env
 
   cron:
+    volumes:
+      - ${DOCKER_VOLUME_BACKEND_ROOT_DIR}:/var/www/html
     env_file:
       - .envs/app.env
       - .envs/web.env
