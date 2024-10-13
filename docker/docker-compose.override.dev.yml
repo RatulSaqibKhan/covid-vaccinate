@@ -14,3 +14,23 @@ services:
   rabbitmq:
     ports:
       - ${RABBITMQ_PUBLISH_PORT}:15672
+
+  app:
+    env_file:
+      - .envs/app.env
+      - .envs/web.env
+      - .envs/php-ini.env
+    ports:
+      - ${WEB_HTTP_PUBLISH_PORT}:8000
+
+  queue:
+    env_file:
+      - .envs/app.env
+      - .envs/web.env
+      - .envs/php-ini.env
+
+  cron:
+    env_file:
+      - .envs/app.env
+      - .envs/web.env
+      - .envs/php-ini.env

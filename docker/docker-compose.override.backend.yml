@@ -1,0 +1,51 @@
+services:
+  app:
+    container_name: ${COMPOSE_PROJECT_NAME}-app
+    image: ${COMPOSE_PROJECT_NAME}-app:${DOCKER_BUILD_MODE}
+    build:
+      context: ${DOCKER_BUILD_CONTEXT_DIR}
+      dockerfile: docker/backend/Dockerfile
+      args:
+        - BUILD_WATCH_MODE=${DOCKER_BUILD_WATCH_MODE:-0}
+        - BUILD_MODE=${DOCKER_BUILD_MODE}
+        - TIMEZONE=${TIMEZONE}
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      CONTAINER_ROLE: ${CONTAINER_ROLE_APP}
+    networks:
+      covid-vaccinate-net:
+        aliases:
+        - covid-vaccinate-app
+  
+  queue:
+    container_name: ${COMPOSE_PROJECT_NAME}-queue
+    image: ${COMPOSE_PROJECT_NAME}-app:${DOCKER_BUILD_MODE}
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      CONTAINER_ROLE: ${CONTAINER_ROLE_QUEUE}
+    depends_on:
+      - app
+    networks:
+      covid-vaccinate-net:
+        aliases:
+        - covid-vaccinate-queue
+  
+  cron:
+    container_name: ${COMPOSE_PROJECT_NAME}-cron
+    image: ${COMPOSE_PROJECT_NAME}-app:${DOCKER_BUILD_MODE}
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      CONTAINER_ROLE: ${CONTAINER_ROLE_CRON}
+    depends_on:
+      - app
+    networks:
+      covid-vaccinate-net:
+        aliases:
+        - covid-vaccinate-cron
+  

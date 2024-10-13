@@ -4,6 +4,7 @@ volumes:
 
 services:
   rabbitmq:
+    container_name: ${COMPOSE_PROJECT_NAME}-rabbitmq
     image: rabbitmq:${RABBITMQ_IMAGE_TAG}
     env_file:
       - .envs/rabbitmq.env

@@ -1,5 +1,6 @@
 services:
   mysql:
+    container_name: ${COMPOSE_PROJECT_NAME}-mysql
     image: "mysql:${MYSQL_IMAGE_TAG}"
     command:
       - --character-set-server=utf8mb4

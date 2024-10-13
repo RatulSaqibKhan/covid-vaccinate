@@ -4,6 +4,7 @@ volumes:
 
 services:
   redis:
+    container_name: ${COMPOSE_PROJECT_NAME}-redis
     image: bitnami/redis:${REDIS_IMAGE_TAG}
     env_file:
       - .envs/redis.env
