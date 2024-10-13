@@ -12,6 +12,8 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(\App\Interfaces\UserRepositoryInterface::class, \App\Repositories\UserRepository::class);
+        $this->app->bind(\App\Interfaces\VaccineCenterInterface::class, \App\Repositories\VaccineCenterRepository::class);
+        $this->app->bind(\App\Interfaces\VaccineScheduleInterface::class, \App\Repositories\VaccineScheduleRepository::class);
     }
 
     /**

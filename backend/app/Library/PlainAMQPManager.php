@@ -109,6 +109,27 @@ class PlainAMQPManager
         }
     }
 
+    private function createMessage($payload)
+    {
+        $properties = [
+            'content_type' => 'application/json',
+            'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT,
+        ];
+
+        $currentPayload = json_decode($payload, true);
+
+        if ($correlationId = $currentPayload['id'] ?? null) {
+            $properties['correlation_id'] = $correlationId;
+        }
+
+        $message = new AMQPMessage($payload, $properties);
+
+        return [
+            $message,
+            $correlationId,
+        ];
+    }
+
     public function basicConsume($queueName, $callback)
     {
         // Declare the queue from which to consume

@@ -2,16 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\VaccineCenterInterface;
 use App\Models\VaccineCenter;
 use App\Caching\VaccineCenterCache;
+use App\Interfaces\VaccineCenterInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Query\Builder;
 
-class VaccineCenterRepository
+class VaccineCenterRepository implements VaccineCenterInterface
 {
-    public function getAll(int $page, int $limit, ?string $search = null): LengthAwarePaginator
+    public function getAll(int $limit, ?string $search = null): LengthAwarePaginator
     {
         $vaccineCenterQuery = VaccineCenter::query();
         if ($search) {
@@ -35,6 +33,11 @@ class VaccineCenterRepository
             VaccineCenterCache::set($name, $vaccineCenter);
         }
         return $vaccineCenter;
+    }
+
+    public function findById(int $id): ?array
+    {
+        return VaccineCenter::query()->find($id)->toArray();
     }
 
     public function update(int $id, array $data): ?array

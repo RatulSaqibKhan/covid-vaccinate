@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use App\Utils\Logger;
+use Carbon\Carbon;
 
 class Helpers
 {
@@ -63,4 +64,23 @@ class Helpers
         return self::trimArrayValues($array, $toLowercase);
     }
 
+    public static function getNextWorkingDate($dateString)
+    {
+        // Set the timezone to Asia/Dhaka
+        $date = Carbon::parse($dateString, config('app.timezone'))->addDay();
+        $now = now(config('app.timezone'));
+        // If the date is lesser than current date, add the day
+        if ($now->greaterThanOrEqualTo($date)) {
+            $diffInDays = $now->diffInDays($date);
+            $date = $date->addDays($diffInDays);
+        }
+
+        // Loop to find the next working day
+        while ($date->isFriday() || $date->isSaturday() || $now->greaterThanOrEqualTo($date)) {
+            // Add a day and check again
+            $date->addDay();
+        }
+
+        return $date->toDateString(); // Return the date as string (Y-m-d format)
+    }
 }

@@ -9,6 +9,10 @@ class User extends Model
 {
     use HasFactory;
 
+    public const NOT_SCHEDULED = 'Not Scheduled';
+    public const SCHEDULED = 'Scheduled';
+    public const VACCINATED = 'Vaccinated';
+    
     protected $fillable = [
         'name',
         'email',
@@ -16,7 +20,8 @@ class User extends Model
         'phone',
         'vaccine_center_id',
         'registered_at',
-        'status'
+        'status',
+        'scheduled_date'
     ];
 
     public function vaccineCenter()

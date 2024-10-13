@@ -21,7 +21,7 @@ class VaccineCenterController extends Controller
             $limit = (int)$request->get('limit', '50');
             $uriQueries = ['limit' => $limit];
 
-            $paginatedData = $this->service->getVaccineCenters($page, $limit, $search);
+            $paginatedData = $this->service->getVaccineCenters($limit, $search);
             $paginatedData->appends($uriQueries);
             
             return ResponseDecorator::json([

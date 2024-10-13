@@ -46,6 +46,7 @@ updated_at       TIMESTAMP
 ## Backend API
 1. User Search API
 2. User Registration API
+3. Vaccination Paginated List API
 
 ## Backend Process
 1. Queue Job for consuming user data and calculate the scheduled vaccination date

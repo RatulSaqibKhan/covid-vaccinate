@@ -2,11 +2,12 @@
 
 namespace App\Interfaces;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface VaccineCenterInterface
 {
-    public function getAll(int $page, int $limit, ?string $search): Builder;
+    public function getAll(int $limit, ?string $search): LengthAwarePaginator;
+    public function findById(int $id): ?array;
     public function findByName(string $name): ?array;
     public function update(int $id, array $data): ?array;
 }
