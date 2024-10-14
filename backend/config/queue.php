@@ -91,8 +91,8 @@ return [
                     'routing_key' => env('RABBITMQ_USER_REGISTER_QUEUE', 'covid_vaccinate_user_register'),
                 ],
                 'user_email_notification' => [
-                    'name' => env('RABBITMQ_USER_EMAIL_NOTIFICATIOn_QUEUE', 'covid_vaccinate_user_register'),
-                    'routing_key' => env('RABBITMQ_USER_EMAIL_NOTIFICATIOn_QUEUE', 'covid_vaccinate_user_email_notification'),
+                    'name' => env('RABBITMQ_USER_EMAIL_NOTIFICATION_QUEUE', 'covid_vaccinate_user_register'),
+                    'routing_key' => env('RABBITMQ_USER_EMAIL_NOTIFICATION_QUEUE', 'covid_vaccinate_user_email_notification'),
                 ],
             ]
         ],

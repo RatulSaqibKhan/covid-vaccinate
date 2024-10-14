@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Events\UserRegisterEventEmitted;
+use App\Events\VaccineReminderEventEmitted;
+use App\Listeners\NotifyUserEmailProcessorWorker;
 use App\Listeners\NotifyUserVaccineSchedulerWorker;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -17,6 +19,9 @@ class EventServiceProvider extends ServiceProvider
         UserRegisterEventEmitted::class => [
             NotifyUserVaccineSchedulerWorker::class,
         ],
+        VaccineReminderEventEmitted::class => [
+            NotifyUserEmailProcessorWorker::class
+        ]
     ];
 
     /**
