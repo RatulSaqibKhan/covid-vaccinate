@@ -1,0 +1,22 @@
+services:
+  ui:
+    container_name: ${COMPOSE_PROJECT_NAME}-ui
+    image: ${COMPOSE_PROJECT_NAME}-ui:${DOCKER_BUILD_MODE}
+    build:
+      context: ${DOCKER_BUILD_CONTEXT_DIR}
+      dockerfile: docker/frontend/Dockerfile
+      target: production
+      args:
+        NEXT_PUBLIC_BACKEND_SERVICE_BASE_PROXY_URI: "/backend-service"
+        NEXT_PUBLIC_BACKEND_SERVICE_BASE_URI: http://${COMPOSE_PROJECT_NAME}-app/api/
+        APP_PORT: "3000"
+        NODE_ENV: production
+        APP_NAME: 'Covide Vaccinate'
+        APP_TIMEZONE: 'Asia/Dhaka'
+        LOG_LEVEL: info
+    networks:
+      covid-vaccinate-net:
+        aliases:
+        - covid-vaccinate-ui
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

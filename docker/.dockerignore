@@ -1,0 +1,57 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Laravel specific
+/vendor/
+.env
+Homestead.yaml
+Homestead.json
+.phpunit.result.cache
+.phpunit.cache
+public/storage
+storage/*.key
+storage/*.log
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+
+# Ignore build files
+/build/
+/.next/
+dist/
+
+# Build artifacts
+*.zip
+*.tar.gz
+*.tar
+*.gz
+*.log
+*.tmp
+*.bak
+
+# Git files
+.git/
+.gitignore
+
+# Ignore IDE/editor specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore Docker-related files
+Dockerfile
+.dockerignore
+
+# Ignore cache and compiled files
+*.cache
+*.class
+*.o
+
+# Ignore other unnecessary files
+*.DS_Store
+*.env.local
+*.env.development.local
+*.env.production.local

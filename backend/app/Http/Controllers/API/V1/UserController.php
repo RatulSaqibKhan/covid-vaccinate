@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegistrationRequest;
 use App\Http\Requests\UserSearchRequest;
 use App\Services\V1\UserService;
+use App\Utils\Helpers;
 use App\Utils\ResponseDecorator;
 use Exception;
 use Illuminate\Http\Request;
@@ -16,6 +17,12 @@ class UserController extends Controller
 {
     public function __construct(private UserService $userService) {}
 
+    /**
+     * Register a new user based on the provided registration request.
+     *
+     * @param UserRegistrationRequest $request The request containing user registration data.
+     * @return Response The JSON response indicating the status of the registration process.
+     */
     public function register(UserRegistrationRequest $request)
     {
         try {
@@ -26,7 +33,7 @@ class UserController extends Controller
             $user = $this->userService->registerUser($userDto);
 
             return ResponseDecorator::json([
-                'status' => Response::HTTP_CREATED,
+                'status' => Helpers::SUCCESS,
                 'code' => Response::HTTP_CREATED,
                 'message' => 'User successfully registered',
                 'data' => $user
@@ -38,14 +45,19 @@ class UserController extends Controller
             return ResponseDecorator::json([
                 'error' => [
                     'code' => $code,
-                    'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                    'status' => Helpers::FAILED,
                     'reason' => $reason,
                     'message' => 'Something went wrong. Please try again or contact system administrator.',
                 ]
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-
+    /**
+     * Search for a user based on the provided National ID (NID) in the request.
+     *
+     * @param Request $request The request object containing the NID to search for.
+     * @return Response The JSON response indicating the search result and status.
+     */
     public function search(Request $request)
     {
         try {
@@ -57,7 +69,7 @@ class UserController extends Controller
             $message = $user ? "User found successfully" : "User not found";
             $code = $user ? Response::HTTP_OK : Response::HTTP_NOT_FOUND;
             return ResponseDecorator::json([
-                'status' => Response::HTTP_CREATED,
+                'status' => Helpers::SUCCESS,
                 'code' => Response::HTTP_CREATED,
                 'message' => $message,
                 'data' => $user ?? null
@@ -69,7 +81,7 @@ class UserController extends Controller
             return ResponseDecorator::json([
                 'error' => [
                     'code' => $code,
-                    'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                    'status' => Helpers::FAILED,
                     'reason' => $reason,
                     'message' => 'Something went wrong. Please try again or contact system administrator.',
                 ]

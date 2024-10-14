@@ -50,8 +50,8 @@ create-network:
 # Build the app service
 .PHONY: build-services
 build-services:
-	@echo "Building the 'app' service..."
-	@cd $(DOCKER_DIR) && docker compose build app
+	@echo "Building the 'app' and 'ui' service..."
+	@cd $(DOCKER_DIR) && docker compose build app && docker compose build ui
 
 # Bring up core services (redis, mysql, adminer, rabbitmq)
 .PHONY: up-core-services
@@ -62,8 +62,8 @@ up-core-services:
 # Bring up remaining services (app, queue, cron)
 .PHONY: up-remaining-services
 up-remaining-services:
-	@echo "Starting remaining services: app, queue, cron..."
-	@cd $(DOCKER_DIR) && docker compose up -d app queue cron
+	@echo "Starting remaining services: app, queue, cron, ui..."
+	@cd $(DOCKER_DIR) && docker compose up -d app queue cron ui
 
 # Bring down app, queue, cron services
 .PHONY: down-app-services

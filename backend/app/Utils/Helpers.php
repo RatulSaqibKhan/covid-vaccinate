@@ -7,6 +7,8 @@ use Carbon\Carbon;
 
 class Helpers
 {
+    public const SUCCESS = "success";
+    public const FAILED = "failed";
     /**
      * @param \Throwable $exception
      *

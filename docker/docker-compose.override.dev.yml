@@ -20,6 +20,10 @@ services:
       - ${MAILHOG_GUI_PORT}:8025
       - ${MAILHOG_SMTP_PORT}:1025
 
+  ui:
+    ports:
+      - ${FRONTEND_UI_PORT}:3000
+
   app:
     volumes:
       - ${DOCKER_VOLUME_BACKEND_ROOT_DIR}:/var/www/html

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Services\V1\VaccineCenterService;
+use App\Utils\Helpers;
 use App\Utils\ResponseDecorator;
 use Exception;
 use Illuminate\Http\Request;
@@ -23,21 +24,23 @@ class VaccineCenterController extends Controller
 
             $paginatedData = $this->service->getVaccineCenters($limit, $search);
             $paginatedData->appends($uriQueries);
-            
+
             return ResponseDecorator::json([
-                'status' => Response::HTTP_OK,
+                'status' => Helpers::SUCCESS,
                 'code' => Response::HTTP_OK,
                 'message' => 'Vaccine centers successfully retrieved',
-                'data' => $paginatedData->items(),
-                'links' => [
-                    'prev' => $paginatedData->previousPageUrl(),
-                    'self' => $paginatedData->url($page),
-                    'next' => $paginatedData->nextPageUrl(),
-                ],
-                'meta' => [
-                    'current_page' => (int) $paginatedData->currentPage(),
-                    'per_page' => (int) $paginatedData->perPage(),
-                    'total_rows' => (int) $paginatedData->total(),
+                'data' => [
+                    'items' => $paginatedData->items(),
+                    'links' => [
+                        'prev' => $paginatedData->previousPageUrl(),
+                        'self' => $paginatedData->url($page),
+                        'next' => $paginatedData->nextPageUrl(),
+                    ],
+                    'meta' => [
+                        'current_page' => (int) $paginatedData->currentPage(),
+                        'per_page' => (int) $paginatedData->perPage(),
+                        'total_rows' => (int) $paginatedData->total(),
+                    ],
                 ],
             ], Response::HTTP_OK);
         } catch (Exception $exception) {
@@ -47,7 +50,7 @@ class VaccineCenterController extends Controller
             return ResponseDecorator::json([
                 'error' => [
                     'code' => $code,
-                    'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                    'status' => Helpers::FAILED,
                     'reason' => $reason,
                     'message' => 'Something went wrong. Please try again or contact system administrator.',
                 ]
