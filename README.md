@@ -71,6 +71,11 @@ This is a simple vaccination registration system.
 ## Note:
 ### Integrate phone messaging
 - To integrate phone messaging, you need to install Twilio and configure it in your Laravel project.
+- Need to configure notification dirver from environment variable
+- According to that we need to modify the business logic in `SendVaccineReminderCommand.php` to send data to specific queue for the notification type (email, sms)
+- New consumer needed for SMS notification to process sms queue data
+- Also we need a new job to handle SMS notification
+- Create SMS Service for sending SMS notifiactions
 
 ### Install `make`
 - You can install `make` using `sudo apt-get install make` on Ubuntu or `brew install make`
