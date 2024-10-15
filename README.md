@@ -45,23 +45,31 @@ This is a simple vaccination registration system.
 1. `cd docker/.envs` and make all `*.env` files by copying `*.env.example`
 2. `cd docker` and make `.env` from `.env.example` and make `docker-compose.override.yml` from `docker-compose.override.dev.yml`
 3. `cd docker` and `docker compose up -d redis mysql adminer rabbitmq mailhog`
-4. docker exec covid-vaccinate-mysql sh -c "mysql -u root -p'covid-vaccinate' -e 'CREATE DATABASE IF NOT EXISTS \`covid_vaccinate\`;'" for regular application
-5. docker exec covid-vaccinate-mysql sh -c "mysql -u root -p'covid-vaccinate' -e 'CREATE DATABASE IF NOT EXISTS \`covid_vaccinate_test\`;'" for regular application testing
+4. `docker exec covid-vaccinate-mysql sh -c "mysql -u root -p'covid-vaccinate' -e 'CREATE DATABASE IF NOT EXISTS covid_vaccinate;'"` for regular application
+5. `docker exec covid-vaccinate-mysql sh -c "mysql -u root -p'covid-vaccinate' -e 'CREATE DATABASE IF NOT EXISTS covid_vaccinate_test;'"` for regular application testing
 6. `cd docker` and `docker network create covid-vaccinate-net`
 7. `cd docker` and `docker compose build app`
 8. `cd docker` and `docker compose up -d app`
 9. `cd docker` and `docker exec covid-vaccinate-app sh -c "composer install"`
 10. `cd docker` and `docker exec covid-vaccinate-app sh -c "npm install"`
-8. `cd docker` and `docker compose down app`
-9. `cd docker` and `docker compose up -d app cron queue`
-10. `cd docker` and `docker compose build ui`
-12. `cd docker` and `docker compose up -d ui`
+11. `cd docker` and `docker exec covid-vaccinate-app sh -c "php artisan migrate && php artisan db:seed"`
+12. `cd docker` and `docker compose down app`
+13. `cd docker` and `docker compose up -d app cron queue`
+14. `cd docker` and `docker compose build ui`
+15. `cd docker` and `docker compose up -d ui`
 
-### For Testing
+## For Testing
 1. `cd docker` and `docker compose up app-test`
 2. Using make cd to project root dir and run `make up-app-test`
 
-### Postman Collection
+## Application Uninstallation
+### Using Make
+1. cd to project root directory and run `make down-app` and `make down-core`
+
+### Manual Process
+1. `cd docker` and run `docker compose down`
+
+## Postman Collection
 1. Find the postman collection [here](./backend/tests/Covid%20Vaccinate.postman_collection.json)
 
 ## Application Access
@@ -76,6 +84,9 @@ This is a simple vaccination registration system.
 - New consumer needed for SMS notification to process sms queue data
 - Also we need a new job to handle SMS notification
 - Create SMS Service for sending SMS notifiactions
+
+### Improvement Tasks
+1. API throttling/ Rate Limitting for the backend APIs
 
 ### Install `make`
 - You can install `make` using `sudo apt-get install make` on Ubuntu or `brew install make`
