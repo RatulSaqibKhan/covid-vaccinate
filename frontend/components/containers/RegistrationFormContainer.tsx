@@ -4,7 +4,7 @@ import Title from "antd/es/typography/Title";
 import RegistrationForm from "../forms/RegistrationForm";
 import { VaccineCenter } from "@/libs/models/VaccineCenter";
 import CommonResponse from "@/libs/api-response-interfaces/CommonResponse";
-import { createBacckendService } from "@/libs/services/BackendApiService";
+import { createBackendService } from "@/libs/services/BackendApiService";
 import { BackendServiceApiResponseInterface } from "@/libs/api-response-interfaces/BackendServiceApiResponseInterface";
 import { VaccineCenterListApiResponse } from "@/libs/api-response-interfaces/VaccineCenterListApiResponse";
 import { VaccineCenterListRequestPayload } from "@/libs/api-request-interfaces/VaccineCenterListRequestPayload";
@@ -29,7 +29,7 @@ const RegistrationFormContainer: React.FC = () => {
     try {
       const response: CommonResponse<
         BackendServiceApiResponseInterface<VaccineCenterListApiResponse>
-      > = await createBacckendService().getVaccineCenters(queries);
+      > = await createBackendService().getVaccineCenters(queries);
 
       setVaccineCenters(response.data.data.items);
     } catch (error) {

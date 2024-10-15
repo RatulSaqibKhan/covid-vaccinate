@@ -27,7 +27,7 @@ class UserService
     public function searchUser(string $nid)
     {
         $user = $this->userRepository->findByNid($nid);
-        $scheduleDate = $user['scheduled_date'] ? Carbon::parse($user['scheduled_date'], config('app.timezone')) : null;
+        $scheduleDate = (\array_key_exists('scheduled_date', $user) && $user['scheduled_date']) ? Carbon::parse($user['scheduled_date'], config('app.timezone')) : null;
         $now = \now(config('app.timezone'));
         if ($scheduleDate && $now->greaterThan($scheduleDate)) {
             $data = [

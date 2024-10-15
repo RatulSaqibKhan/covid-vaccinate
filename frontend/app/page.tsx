@@ -1,44 +1,30 @@
-import { Suspense } from "react";
 import { Layout } from "antd";
 import { Content } from "antd/es/layout/layout";
 import AppFooter from "@/components/layout/AppFooter";
+import SearchFormContainer from "@/components/containers/SearchFormContainer";
+import TopNavbar from "@/components/layout/TopNavbar";
 
 export default function Home() {
   return (
-    <Suspense>
-      <Layout className="h-svh">
+    <Layout>
+        <TopNavbar/>
         <Layout style={{ flexDirection: "row" }}>
-          <Layout>
-            <Content
+        <Layout>
+          <Content style={{ padding: "15px" }}>
+            <div
               style={{
-                padding: "15px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
                 background: "rgb(255, 255, 255)",
+                padding: 24,
+                minHeight: "calc(100vh - 125px)",
+                borderRadius: "8px",
               }}
             >
-              <div
-                className="max-w-md"
-                style={{
-                  padding: 24,
-                  borderRadius: "8px",
-                }}
-              >
-                <div className="p-4">
-                  Demo APP
-                </div>
-              </div>
-            </Content>
-            <AppFooter
-              style={{
-                padding: "15px 10px 10px 10px",
-                backgroundColor: "#fff",
-              }}
-            />
-          </Layout>
+              <SearchFormContainer />
+            </div>
+          </Content>
+          <AppFooter />
         </Layout>
       </Layout>
-    </Suspense>
+    </Layout>
   );
 }

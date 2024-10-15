@@ -14,7 +14,7 @@ class BackendService {
     this.apiClient = apiClient;
   }
 
-  async userSearch(nid: number) {
+  async userSearch(nid: string) {
     return await this.apiClient.get<BackendServiceApiResponseInterface<User | null>>(`/v1/search/${nid}`);
   }
 
@@ -30,8 +30,8 @@ class BackendService {
   }
 }
 
-function createBacckendService<T>(options: Record<string, T> = {}) {
+function createBackendService<T>(options: Record<string, T> = {}) {
   return new BackendService(new BackendApiClient(options));
 }
 
-export { BackendService, createBacckendService };
+export { BackendService, createBackendService };

@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import { Col, Form, Input, notification, Row, Select, Spin } from "antd";
 import FormButtonSection from "../layout/FormButtomSection";
 import CommonResponse from "@/libs/api-response-interfaces/CommonResponse";
-import { createBacckendService } from "@/libs/services/BackendApiService";
+import { createBackendService } from "@/libs/services/BackendApiService";
 import { BackendServiceApiResponseInterface } from "@/libs/api-response-interfaces/BackendServiceApiResponseInterface";
 import { User } from "@/libs/models/User";
 import { UserRegistrationRequestPayload } from "@/libs/api-request-interfaces/UserRegistrationRequestPayload";
@@ -73,7 +73,7 @@ const RegistrationForm: React.FC<ResistrationFormProps> = (
 
     try {
       const response: CommonResponse<BackendServiceApiResponseInterface<User>> =
-        await createBacckendService().registerUser(userData);
+        await createBackendService().registerUser(userData);
 
       notification.success({ message: response.data.message });
     } catch (error) {

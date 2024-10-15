@@ -70,10 +70,10 @@ class UserController extends Controller
             $code = $user ? Response::HTTP_OK : Response::HTTP_NOT_FOUND;
             return ResponseDecorator::json([
                 'status' => Helpers::SUCCESS,
-                'code' => Response::HTTP_CREATED,
+                'code' => Response::HTTP_OK,
                 'message' => $message,
                 'data' => $user ?? null
-            ], Response::HTTP_CREATED);
+            ], Response::HTTP_OK);
         } catch (Exception $exception) {
             $code = $exception->getCode();
             $reason = $exception->getMessage();

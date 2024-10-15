@@ -35,8 +35,13 @@ class UserRepository implements UserRepositoryInterface
 
     public function findByEmail(string $email): ?array
     {
-        $user = User::query()->where('email', $email)->first()->toArray();
-        UserCache::set($user['nid'], $user);
+        $user = User::query()->where('email', $email)->first();
+        if ($user) {
+            $user = $user->toArray();
+            UserCache::set($user['nid'], $user);
+        } else {
+            $user = [];
+        }
         return $user;
     }
 
@@ -44,8 +49,13 @@ class UserRepository implements UserRepositoryInterface
     {
         $user = UserCache::get($nid);
         if (!$user) {
-            $user = User::query()->where('nid', $nid)->first()->toArray();
-            UserCache::set($nid, $user);
+            $user = User::query()->where('nid', $nid)->first();
+            if ($user) {
+                $user = $user->toArray();
+                UserCache::set($nid, $user);
+            } else {
+                $user = [];
+            }
         }
         return $user;
     }

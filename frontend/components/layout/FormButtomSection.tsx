@@ -1,7 +1,7 @@
-import { Button, Flex, Form, Space } from "antd";
+import { Button, Form, Space } from "antd";
 import { FormInstance } from "antd/lib";
 const tailLayout = {
-  wrapperCol: { offset: 20, span: 4 },
+  wrapperCol: { span: 24 },
 };
 
 export interface FormButtonSectionProps {
@@ -21,20 +21,18 @@ const FormButtonSection: React.FC<FormButtonSectionProps> = (
   };
   return (
     <Form.Item {...tailLayout}>
-      <Flex justify="flex-end" align="flex-start">
-        <Space>
-          <Button type="primary" htmlType="submit" loading={loading}>
-            Submit
+      <Space>
+        <Button type="primary" htmlType="submit" loading={loading}>
+          Submit
+        </Button>
+        {resetBtnNeeded ? (
+          <Button type="default" htmlType="button" onClick={onReset}>
+            Reset
           </Button>
-          {resetBtnNeeded ? (
-            <Button type="default" htmlType="button" onClick={onReset}>
-              Reset
-            </Button>
-          ) : (
-            ""
-          )}
-        </Space>
-      </Flex>
+        ) : (
+          ""
+        )}
+      </Space>
     </Form.Item>
   );
 };
