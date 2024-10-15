@@ -10,6 +10,7 @@ DOCKER_COMPOSE=$(DOCKER_DIR)/docker-compose.override.yml
 DOCKER_NETWORK=covid-vaccinate-net
 MYSQL_CONTAINER=covid-vaccinate-mysql
 APP_CONTAINER=covid-vaccinate-app
+UI_CONTAINER=covid-vaccinate-ui
 MYSQL_DB_NAME=covid_vaccinate
 MYSQL_TEST_DB_NAME=covid_vaccinate_test
 MYSQL_ROOT_PASSWORD=covid-vaccinate
@@ -52,7 +53,11 @@ create-network:
 .PHONY: build-services
 build-services:
 	@echo "Building the 'app' and 'ui' service..."
-	@cd $(DOCKER_DIR) && docker compose build app && docker compose build ui
+	@cd $(DOCKER_DIR) && docker compose build app && docker compose build ui && docker compose up -d app ui
+	@docker exec $(APP_CONTAINER) sh -c "composer install"
+	@docker exec $(APP_CONTAINER) sh -c "npm install"
+	@docker exec $(UI_CONTAINER) sh -c "npm install"
+	@cd $(DOCKER_DIR) && docker compose down app ui
 
 # Bring up core services (redis, mysql, adminer, rabbitmq)
 .PHONY: up-core-services
