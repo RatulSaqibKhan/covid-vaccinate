@@ -48,4 +48,18 @@ services:
       covid-vaccinate-net:
         aliases:
         - covid-vaccinate-cron
+  app-test:
+    container_name: ${COMPOSE_PROJECT_NAME}-app-test
+    image: ${COMPOSE_PROJECT_NAME}-app:${DOCKER_BUILD_MODE}
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      CONTAINER_ROLE: ${CONTAINER_ROLE_APP}
+    depends_on:
+      - app
+    networks:
+      covid-vaccinate-net:
+        aliases:
+        - covid-vaccinate-cron
   

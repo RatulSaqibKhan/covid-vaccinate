@@ -1,0 +1,414 @@
+{
+	"info": {
+		"_postman_id": "26fad69c-ce0a-453d-8f73-73c678386d7f",
+		"name": "Covid Vaccinate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3391068"
+	},
+	"item": [
+		{
+			"name": "User Registration",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sagor\",\n    \"nid\": 12314221,\n    \"email\": \"humaun@gmail.com\",\n    \"phone\": \"8801934107812\",\n    \"vaccine_center_id\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/register",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"register"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "User Registration Response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Sagor\",\n    \"nid\": 12314221,\n    \"email\": \"sagor@gmail.com\",\n    \"phone\": \"8801934107812\",\n    \"vaccine_center_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9500/api/v1/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9500",
+							"path": [
+								"api",
+								"v1",
+								"register"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 13 Oct 2024 17:09:21 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Api-Log",
+							"value": "{\"request_end_time\":1728839361}"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "204"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 201,\n    \"code\": 201,\n    \"message\": \"User successfully registered\",\n    \"data\": {\n        \"name\": \"Sagor\",\n        \"email\": \"sagor@gmail.com\",\n        \"nid\": \"12314221\",\n        \"phone\": \"8801934107812\",\n        \"vaccine_center_id\": 1,\n        \"registered_at\": \"2024-10-13\",\n        \"updated_at\": \"2024-10-13T17:09:21.000000Z\",\n        \"created_at\": \"2024-10-13T17:09:21.000000Z\",\n        \"id\": 12\n    }\n}"
+				},
+				{
+					"name": "User Registration Validation Response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Sagor\",\n    \"nid\": 12314221,\n    \"email\": \"humaun@gmail.com\",\n    \"phone\": \"8801934107812\",\n    \"vaccine_center_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:9500/api/v1/register",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9500",
+							"path": [
+								"api",
+								"v1",
+								"register"
+							]
+						}
+					},
+					"status": "Unprocessable Entity",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 14 Oct 2024 20:38:23 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "128"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"The email has already been taken. (and 2 more errors)\",\n    \"errors\": {\n        \"email\": [\n            \"The email has already been taken.\"\n        ],\n        \"nid\": [\n            \"The nid has already been taken.\"\n        ],\n        \"phone\": [\n            \"The phone has already been taken.\"\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/v1/search/12314221",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"search",
+						"12314221"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get User Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:9500/api/v1/search/12314221",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "9500",
+							"path": [
+								"api",
+								"v1",
+								"search",
+								"12314221"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 13 Oct 2024 19:19:10 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Api-Log",
+							"value": "{\"request_end_time\":1728847150}"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "236"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 201,\n    \"code\": 201,\n    \"message\": \"User found successfully\",\n    \"data\": {\n        \"id\": 12,\n        \"nid\": \"12314221\",\n        \"name\": \"Sagor\",\n        \"email\": \"sagor@gmail.com\",\n        \"phone\": \"8801934107812\",\n        \"vaccine_center_id\": 1,\n        \"registered_at\": \"2024-10-13 00:00:00\",\n        \"status\": \"Scheduled\",\n        \"scheduled_date\": \"2024-10-20\",\n        \"created_at\": \"2024-10-13T17:09:21.000000Z\",\n        \"updated_at\": \"2024-10-13T17:09:23.000000Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Vaccine Center",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/v1/vaccine-centers?page=1&limit=10&search=Gulshan",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"vaccine-centers"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						},
+						{
+							"key": "search",
+							"value": "Gulshan"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Vaccinate Center Response",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 13 Oct 2024 14:40:54 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Api-Log",
+							"value": "{\"request_end_time\":1728830454}"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Content-Length",
+							"value": "372"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"code\": 200,\n    \"message\": \"Vaccine centers successfully retrieved\",\n    \"data\": [\n        {\n            \"id\": 39,\n            \"name\": \"Zainul Haque Sikder Women’s Medical College\",\n            \"address\": \"Gulshan, Dhaka\",\n            \"daily_capacity\": 15,\n            \"available_date\": \"2024-10-14\",\n            \"created_at\": \"2024-10-13T06:23:36.000000Z\",\n            \"updated_at\": \"2024-10-13T06:23:36.000000Z\"\n        },\n        {\n            \"id\": 16,\n            \"name\": \"United Hospital\",\n            \"address\": \"Gulshan, Dhaka\",\n            \"daily_capacity\": 16,\n            \"available_date\": \"2024-10-14\",\n            \"created_at\": \"2024-10-13T06:23:36.000000Z\",\n            \"updated_at\": \"2024-10-13T06:23:36.000000Z\"\n        }\n    ],\n    \"links\": {\n        \"prev\": null,\n        \"self\": \"http://127.0.0.1:9500/api/v1/vaccine-centers?limit=10&page=1\",\n        \"next\": null\n    },\n    \"meta\": {\n        \"current_page\": 1,\n        \"per_page\": 10,\n        \"total_rows\": 2\n    }\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:9500",
+			"type": "string"
+		}
+	]
+}

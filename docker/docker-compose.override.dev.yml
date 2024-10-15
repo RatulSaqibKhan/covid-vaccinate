@@ -49,3 +49,14 @@ services:
       - .envs/app.env
       - .envs/web.env
       - .envs/php-ini.env
+
+  app-test:
+    volumes:
+      - ${DOCKER_VOLUME_BACKEND_ROOT_DIR}:/var/www/html
+    env_file:
+      - .envs/app-test.env
+      - .envs/web.env
+      - .envs/php-ini.env
+    command: >
+      sh -c "php artisan migrate && php artisan db:seed && php artisan test"
+    restart: "no"

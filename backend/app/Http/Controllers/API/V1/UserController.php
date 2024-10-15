@@ -5,7 +5,6 @@ namespace  App\Http\Controllers\API\V1;
 use App\DTOs\RegisterUserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegistrationRequest;
-use App\Http\Requests\UserSearchRequest;
 use App\Services\V1\UserService;
 use App\Utils\Helpers;
 use App\Utils\ResponseDecorator;

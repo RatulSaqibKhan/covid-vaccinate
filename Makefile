@@ -11,6 +11,7 @@ DOCKER_NETWORK=covid-vaccinate-net
 MYSQL_CONTAINER=covid-vaccinate-mysql
 APP_CONTAINER=covid-vaccinate-app
 MYSQL_DB_NAME=covid_vaccinate
+MYSQL_TEST_DB_NAME=covid_vaccinate_test
 MYSQL_ROOT_PASSWORD=covid-vaccinate
 
 # Copy .env.example files to .env and docker/.env.example to docker/.env
@@ -65,6 +66,12 @@ up-remaining-services:
 	@echo "Starting remaining services: app, queue, cron, ui..."
 	@cd $(DOCKER_DIR) && docker compose up -d app queue cron ui
 
+# Bring up app test service (app-test)
+.PHONY: up-app-test-service
+up-app-test-service:
+	@echo "Starting remaining services: app-test..."
+	@cd $(DOCKER_DIR) && docker compose up -d app-test
+
 # Bring down app, queue, cron services
 .PHONY: down-app-services
 down-app-services:
@@ -75,8 +82,8 @@ down-app-services:
 .PHONY: create-db
 create-db:
 	@echo "Creating database '$(MYSQL_DB_NAME)' if it doesn't exist..."
-	@echo "Command: mysql -u root -p'$(MYSQL_ROOT_PASSWORD)' -e 'CREATE DATABASE IF NOT EXISTS \`$(MYSQL_DB_NAME)\`;'"
 	@docker exec $(MYSQL_CONTAINER) sh -c "mysql -u root -p'$(MYSQL_ROOT_PASSWORD)' -e 'CREATE DATABASE IF NOT EXISTS \`$(MYSQL_DB_NAME)\`;'"
+	@docker exec $(MYSQL_CONTAINER) sh -c "mysql -u root -p'$(MYSQL_ROOT_PASSWORD)' -e 'CREATE DATABASE IF NOT EXISTS \`$(MYSQL_TEST_DB_NAME)\`;'"
 	@echo "Database '$(MYSQL_DB_NAME)' ensured to exist."
 
 # Run migrations and seeds
@@ -111,6 +118,10 @@ create-db: create-db
 .PHONY: up-app
 up-app: build-services up-remaining-services
 
+# Run the sequence: up-app-test-service
+.PHONY: up-app-test
+up-app-test: up-app-test-service
+
 # Stop app, queue, cron services
 .PHONY: down-app
 down-app: down-app-services
@@ -130,5 +141,6 @@ help:
 	@echo "  make up-core               Run the sequence to set up core services"
 	@echo "  make migrate-seed          Run database migrations and seeders in the 'app' container"
 	@echo "  make up-app                Run the sequence to set up the app, queue, cron"
+	@echo "  make up-app-test           Run the sequence to set up the app test cases"
 	@echo "  make down-app              Stop app, queue, cron services"
 	@echo "  make clean                 Remove all .env files, docker-compose.override.yml, and Docker network"

@@ -18,7 +18,7 @@ class RegisterUserDTO
         $this->nid = $data['nid'];
         $this->phone = $data['phone'] ?? null;
         $this->vaccine_center_id = (int) $data['vaccine_center_id'];
-        $this->registered_at = \now()->toDateString();
+        $this->registered_at = \now(config('app.timezone'))->toDateString();
     }
 
     public function toArray(): array
