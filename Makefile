@@ -65,6 +65,12 @@ up-core-services:
 	@echo "Starting core services: redis, mysql, adminer, rabbitmq, mailhog..."
 	@cd $(DOCKER_DIR) && docker compose up -d redis mysql adminer rabbitmq mailhog
 
+# Bring down core services (redis, mysql, adminer, rabbitmq)
+.PHONY: down-core-services
+down-core-services:
+	@echo "Stopping app, queue, cron services..."
+	@cd $(DOCKER_DIR) && docker compose down redis mysql adminer rabbitmq mailhog
+
 # Bring up remaining services (app, queue, cron)
 .PHONY: up-remaining-services
 up-remaining-services:
@@ -77,11 +83,11 @@ up-app-test-service:
 	@echo "Starting remaining services: app-test..."
 	@cd $(DOCKER_DIR) && docker compose up -d app-test
 
-# Bring down app, queue, cron services
+# Bring down app, queue, cron, ui services
 .PHONY: down-app-services
 down-app-services:
 	@echo "Stopping app, queue, cron services..."
-	@cd $(DOCKER_DIR) && docker compose down app queue cron
+	@cd $(DOCKER_DIR) && docker compose down app queue cron ui
 
 # Create the database if it doesn't exist
 .PHONY: create-db
@@ -131,6 +137,10 @@ up-app-test: up-app-test-service
 .PHONY: down-app
 down-app: down-app-services
 
+# Stop core services
+.PHONY: down-core
+down-core: down-core-services
+
 # Help message
 .PHONY: help
 help:
@@ -138,14 +148,15 @@ help:
 	@echo "  make copy-envs             Copy .env.example files to create .env files and docker/.env.example to docker/.env"
 	@echo "  make copy-docker-compose   Copy docker-compose.override.dev.yml to docker-compose.override.yml"
 	@echo "  make create-network        Create Docker network '$(DOCKER_NETWORK)'"
-	@echo "  make build-services        Build the 'app' service using docker-compose"
+	@echo "  make build-services        Build the 'app' service using docker compose"
 	@echo "  make up-core-services      Start core services: redis, mysql, adminer, rabbitmq"
 	@echo "  make up-remaining-services Start remaining services: app, queue, cron"
-	@echo "  make down-app-services     Stop services: app, queue, cron"
+	@echo "  make down-app-services     Stop services: app, queue, cron, ui"
 	@echo "  make create-db             Exec into MySQL container and create the database if it doesn't exist"
-	@echo "  make up-core               Run the sequence to set up core services"
+	@echo "  make up-core               Run the sequence to set up core services redis, mysql, adminer, rabbitmq"
 	@echo "  make migrate-seed          Run database migrations and seeders in the 'app' container"
 	@echo "  make up-app                Run the sequence to set up the app, queue, cron"
 	@echo "  make up-app-test           Run the sequence to set up the app test cases"
 	@echo "  make down-app              Stop app, queue, cron services"
+	@echo "  make down-core             Stop core services (redis, mysql, adminer, rabbitmq)"
 	@echo "  make clean                 Remove all .env files, docker-compose.override.yml, and Docker network"

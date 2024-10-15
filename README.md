@@ -39,6 +39,7 @@ This is a simple vaccination registration system.
 2. After that it's time to create DB using `make create-db`. Please run this after the mysql is up running. To check this open Adminer running at `http://localhost:9502` and login with mysql credentials above.
 3. Now let's build and run application actual applcation `make up-app`
 4. Now run this `make migrate-seed` to populate  the database with some data.
+5. For help run `make help`
 
 ## Manual Installation
 1. `cd docker/.envs` and make all `*.env` files by copying `*.env.example`
